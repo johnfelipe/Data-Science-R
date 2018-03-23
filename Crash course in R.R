@@ -1,6 +1,6 @@
 # Crash course in R
 # for Edx's Harvardx Data Science R Basics online course
-# created by Mauro José Pappaterra on February 23rd 2018
+# Created by Mauro José Pappaterra on February 23rd 2018
 
 # BASIC ARITHMETIC
 10 + 10 # sum
@@ -52,7 +52,7 @@ g <- (3L - 2) # they can be mixed!
 
 class (g) # is NUMERIC!
 
-# VECTORS 
+# VECTORS / DATAFRAMES
 # (a series of values of the same type)
 vector <- c(label_1=1, label_2=2, label_3=3, label_4=4) # creates vector
 
@@ -79,7 +79,20 @@ temp <- c(35, 88, 42, 84, 81, 30)
 city <- c("Beijing", "Lagos", "Paris", "Rio de Janeiro", "San Juan", "Toronto")
 city_temps <- data.frame(name = city, temperature = temp) # creates data frame
 
+# yet another way to create a data frame
+
+course_grades <- data.frame (students= c("Bobby","Johnny","Philly","Jackie"),
+                             exam_1= c(95,50,100,85),
+                             exam_2= c(100,60,80,100),
+                             exam_3= c(90,40,90,90),
+                             passed= c(TRUE, FALSE, TRUE,TRUE),
+                             stringsAsFactors = FALSE) # add this last line to prevents strings being turned into factors elements
+                           
+
 # From vector 'temp' return the following values...
+head(city_temps) # returns the first values of the dataset from the top
+tail(city_temps) # returns the last values of the dataset from the bottom
+
 # the temperatures of the FIRST three cities in the list:
 temp[1:3] # or
 temp[c(1,2,3)]
@@ -184,17 +197,25 @@ dataset$column_name + 1000
 
 # import an external package
 library(package_name)
-
 library(dplyr) # package that includes most common operations for data science
 
+# DATA WRANGLING
 
+# Example dataframe
+state <- c("California", "Texas", "Louisiana", "Florida", "New York", "Maine")
+abbreviation <- c("CA", "TX", "LA", "FL", "NY", "MN")
+population <- c(40000000,10000000,25000000,30000000,40000000,2000000)
+murders_yearly <- c(1200,1241,4232,3421,34252,5)
+murders <- data.frame(state = state, abbreviation = abbreviation, population = population, murders_2015 = murders_yearly) # creates data frame
 
+# Common functions from dplyr package
+mutate(murders, murder_rate= murders_2015/population*100000) # creates a new column 'murder_rate', call variables with the dataframe name, murders is now modified! Parameters: mutate (DATAFRAME, new_column = operation on variables
+filter (murders, rate <= 0.75) # returns rows were murder rate is equal or below 0.75 Parameters: filter (DATAFRAME, condition)
+select(murders, state, murders_2015, rate) # returns table showing only the specified columns! Parameters: select (DATAFRAME, column_1, column_2, column_n)
 
-
-  
-
-
-
+# Combining these functions using the pipe operation %>%
+murders %>% select(state, murders_2015, rate) %>% filter(rate <= 0.75)
+murders %>% select(abbreviation, rate) %>% filter(rate > 0.75 & population > 10000000) 
 
 
 
