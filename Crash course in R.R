@@ -80,7 +80,6 @@ city <- c("Beijing", "Lagos", "Paris", "Rio de Janeiro", "San Juan", "Toronto")
 city_temps <- data.frame(name = city, temperature = temp) # creates data frame
 
 # yet another way to create a data frame
-
 course_grades <- data.frame (students= c("Bobby","Johnny","Philly","Jackie"),
                              exam_1= c(95,50,100,85),
                              exam_2= c(100,60,80,100),
@@ -88,10 +87,9 @@ course_grades <- data.frame (students= c("Bobby","Johnny","Philly","Jackie"),
                              passed= c(TRUE, FALSE, TRUE,TRUE),
                              stringsAsFactors = FALSE) # add this last line to prevents strings being turned into factors elements
                            
-
 # From vector 'temp' return the following values...
-head(city_temps) # returns the first values of the dataset from the top
-tail(city_temps) # returns the last values of the dataset from the bottom
+head(city_temps) # returns the first 6 rows of the dataset from the top
+tail(city_temps) # returns the last 6 rows of the dataset from the bottom
 
 # the temperatures of the FIRST three cities in the list:
 temp[1:3] # or
@@ -113,6 +111,7 @@ rank (numbers) # returns the rank in ascending ordering respectively e.g.-> 7 6 
 
 sort(numbers, decreasing=TRUE) # sorts in decreasing order e.g.-> 999 150  99  15  10   5   3
 order(numbers, decreasing=TRUE) # returns the indexes in calling order for descending ordering e.g.->  1 2 4 6 5 3 7
+rank (-numbers) # returns the rank in descending order respectively e.g. -> 1 2 6 3 5 4 7
 
 max(numbers) # returns max number e.g.-> 999
 which.max(numbers) # returns index of max number e.g.-> 1
@@ -184,9 +183,9 @@ which(index) # or retrieve the indexes using which e.g. -> 4 5 6
 dataset$column_name # retrieve a column of a dataset
 
 # sorting and ordering datasets
-sort(dataset$column_name)
-order(dataset$column_name)
-rank(dataset$column_name)
+sort(dataset$column_name) # sorts column from lower to higher... same as above
+order(dataset$column_name) 
+rank(dataset$column_name) 
 
 # basic arithmetic
 dataset$column_name + 1000
@@ -197,13 +196,14 @@ dataset$column_name + 1000
 
 # import an external package
 library(package_name)
+library(dslabs) # package that includes example dataframes
 library(dplyr) # package that includes most common operations for data science
 
 # DATA WRANGLING
 
 # Example dataframe
 state <- c("California", "Texas", "Louisiana", "Florida", "New York", "Maine")
-abbreviation <- c("CA", "TX", "LA", "FL", "NY", "MN")
+abbreviation <- c("CA", "TX", "LA", "FL", "NY", "ME")
 population <- c(40000000,10000000,25000000,30000000,40000000,2000000)
 murders_yearly <- c(1200,1241,4232,3421,34252,5)
 murders <- data.frame(state = state, abbreviation = abbreviation, population = population, murders_2015 = murders_yearly) # creates data frame
@@ -211,9 +211,16 @@ murders <- data.frame(state = state, abbreviation = abbreviation, population = p
 # Common functions from dplyr package
 mutate(murders, murder_rate= murders_2015/population*100000) # creates a new column 'murder_rate', call variables with the dataframe name, murders is now modified! Parameters: mutate (DATAFRAME, new_column = operation on variables
 filter (murders, rate <= 0.75) # returns rows were murder rate is equal or below 0.75 Parameters: filter (DATAFRAME, condition)
+filter (murders, state != "California") # returns all rows but California
+filter (murders, state %in% c("Texas","Lousiana","Florida")) # returns only rows that has any of the given values in the column state
+filter (murders, state > 0.5 & population > 1000000) # returns only rows that comply with multiple conditions
+
 select(murders, state, murders_2015, rate) # returns table showing only the specified columns! Parameters: select (DATAFRAME, column_1, column_2, column_n)
 
-# Combining these functions using the pipe operation %>%
+murders[order(murders$population),] # order by population column, Notice: YES that EXTRA COMMA goes there!
+nrow(murders) # return number of rows
+
+# Combining these functions using the pipe operator %>%
 murders %>% select(state, murders_2015, rate) %>% filter(rate <= 0.75)
 murders %>% select(abbreviation, rate) %>% filter(rate > 0.75 & population > 10000000) 
 
