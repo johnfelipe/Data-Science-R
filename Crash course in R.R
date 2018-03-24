@@ -223,7 +223,15 @@ nrow(murders) # return number of rows
 # Combining these functions using the pipe operator %>%
 murders %>% select(state, murders_2015, rate) %>% filter(rate <= 0.75)
 murders %>% select(abbreviation, rate) %>% filter(rate > 0.75 & population > 10000000) 
+murders %>% mutate(murders, murders_2015/population*100000) %>% select(abbreviation, rate) %>% filter(rate > 0.75 & population > 10000000) 
+new_murders %>% murders %>% mutate(murders_2015/population*100000) %>% select(abbreviation, rate) %>% filter(rate > 0.75 & population > 10000000) # same same as above
 
+# DATA VISUALIZATION: GRAPHS AND PLOTTING
+plot(murders$population,murders$murders_2015) # plot this two columns in a graph with eachother
+
+hist(murders$population) # print histogram of this column
+
+boxplot (population~state,data=murders) # print boxplot with stratified columns (~)
 
 
 
