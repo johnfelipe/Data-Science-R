@@ -1,4 +1,4 @@
-# Crash course in R
+# R Basics
 # for Edx's Harvardx Data Science R Basics online course
 # Created by Mauro José Pappaterra on February 23rd 2018
 
