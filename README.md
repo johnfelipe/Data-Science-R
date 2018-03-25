@@ -6,4 +6,4 @@
 <a href="https://github.com/yogurt1989/Data-Science-R/blob/master/Progress.pdf">See my Progress</a> <br>
 <a href="https://github.com/yogurt1989/Data-Science-R/blob/master/Statement%20of%20Accomplishment.pdf">See Certificate</a>
 
-<img src="https://i.imgur.com/81R4IfO.png">
+<img src="https://i.imgur.com/bQdBC6m.png">
